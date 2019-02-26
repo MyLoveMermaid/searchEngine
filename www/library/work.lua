@@ -1,10 +1,15 @@
+-- 作品相关作品 index 库 文档type
 _Work = { _index = "zk_user_works", _type = "work" }
-
+-- 作品相关的字段
 _Work["params"] = {"id", "name", "egname", "userlogin", "worktype", "from", "createtime", "status", "tag1", "tag2", "tag3", "desc"}
+-- 添加作品必填字段
 _Work["must_params_add"] = {"id", "name", "userlogin", "status", "from", "worktype", "createtime"}
+-- 更新作品必填字段
 _Work["must_params_update"] = {"id", "worktype"}
+-- 删除作品必须字段
 _Work["must_params_del"] = {"id","worktype"}
 
+-- 获取子查询语句
 local function subQuery(_type, key, value)
 	_tmp = {}
     if _type == "term" then 
@@ -16,7 +21,7 @@ local function subQuery(_type, key, value)
 	    return { wildcard = _tmp }
 	end
 end
-
+-- 判断value是否在list中
 local function inArray(value, list)
 	if next(list) == nil then
 		return false
@@ -28,11 +33,13 @@ local function inArray(value, list)
 	end
 	return false
 end
-
+-- 获取完整查询语句
 function _Work.getQueryStr(args)
 	query_str = { from = 0, size = 10}
 	must_str = {}
+    -- term 子查询语句字段
 	term_arr = {"keyid", "id", "userlogin", "worktype", "from", "status", "tag1", "tag2", "tag3"}
+    -- wildcard 子查询语句字段
 	wildcard_arr = {"name", "egname", "desc"}
 	for k, v in pairs(args) do 
 		if inArray(k, term_arr) == true then
@@ -72,6 +79,7 @@ function _Work.getQueryStr(args)
 	size = tonumber(args["limit"])
 	page = tonumber(args["page"])
 	from = (page - 1) * size
+    -- sort 排序方式 此处按 createtime desc 排序作品
 	sort = {
 	    { createtime = { order = "desc"} }
 	}
@@ -97,6 +105,7 @@ function _Work.getQueryStr(args)
 	return query_str
 end
 
+-- 校验必须参数
 function _Work.checkParams(args, must_params_type)
     must_params = _Work[must_params_type]
 	for k, v in pairs(must_params) do
@@ -106,7 +115,7 @@ function _Work.checkParams(args, must_params_type)
 	end
 	return true
 end
-
+-- 组合参数
 function _Work.makeInfo(args, method)
     params = _Work["params"]
 	info = {}

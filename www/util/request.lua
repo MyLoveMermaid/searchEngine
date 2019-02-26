@@ -3,6 +3,7 @@ local cjson = require "cjson"
 local conf = require "conf.conf"
 _Request = {}
 
+-- 返回成功的方法
 function _Request.responseSucc(data)
     ret = {}
     ret["result"] = 0
@@ -13,7 +14,7 @@ function _Request.responseSucc(data)
     ngx.exit(200)
 end
 
-
+-- 返回失败的方法
 function _Request.responseFail(err)
     ret = {}
     ret["result"] = conf["err_code"][err]
@@ -23,7 +24,7 @@ function _Request.responseFail(err)
     ngx.say(cjson.encode(ret))
     ngx.exit(200)
 end
-
+-- 获取get or post 参数
 function _Request.getArgs()
 	request_method = ngx.var.request_method
 	args = nil
