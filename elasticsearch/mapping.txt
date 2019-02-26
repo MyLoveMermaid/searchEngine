@@ -1,0 +1,62 @@
+{
+  "mapping": {
+    "work": {
+      "properties": {
+        "createtime": {
+          "type": "keyword"
+        },
+        "desc": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "egname": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "from": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "id": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "keyid": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "name": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "pic": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "tag1": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "tag2": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "tag3": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "userlogin": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        },
+        "worktype": {
+          "type": "keyword",
+          "normalizer": "my_normalizer"
+        }
+      }
+    }
+  }
+}
